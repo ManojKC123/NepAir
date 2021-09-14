@@ -465,7 +465,7 @@ nav .nav-div .nav-box .left-navs a:hover {
 }
 
 .district-infos .district-box .province-particular {
-  margin: 20px 0;
+  margin: 200px auto;
   position: relative;
   z-index: 1;
 }

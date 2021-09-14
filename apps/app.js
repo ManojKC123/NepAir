@@ -175,11 +175,68 @@ document.addEventListener('DOMContentLoaded', () => {
             await fetch('./main.json')
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
                     let gotdata = data.nepal[provincejson];
-                    console.log(gotdata);
                     gotdata.forEach(district => {
-                        htmldata += ` <div class='single-content-box'>
+                        let dco, dno, dno2, do3, dso2, dpm25, dpm10, dnh3, dmainaqi, color;
+                        fetch(
+                                `http://api.openweathermap.org/data/2.5/air_pollution?lat=${district
+                .position.lat}&lon=${district.position
+                .long}&appid=${openweathermapkey}`
+                            )
+                            .then(data => data.json())
+                            .then(res => {
+                                const main = res.list[0].components;
+                                const aqi = res.list[0].main.aqi;
+                                if (aqi === 1) {
+                                    aqiindex = 'Good';
+                                    color = 'darkgreen';
+                                } else if (aqi === 2) {
+                                    aqiindex = 'Fair';
+                                    color = '#FF9933';
+                                } else if (aqi === 3) {
+                                    aqiindex = 'Moderate';
+                                    color = 'crimson';
+                                } else if (aqi === 4) {
+                                    aqiindex = 'Poor';
+                                    color = 'darkred';
+                                } else {
+                                    aqiindex = 'Very Poor';
+                                    color = '#660099';
+                                }
+                                dco = main.co;
+                                dno = main.no;
+                                dno2 = main.no2;
+                                do3 = main.o3;
+                                dso2 = main.so2;
+                                dpm25 = main.pm2_5;
+                                dpm10 = main.pm10;
+                                dnh3 = main.nh3;
+                                dmainaqi = aqiindex;
+
+                                fetch(
+                                        `http://api.openweathermap.org/data/2.5/weather?lat=${district
+                    .position.lat}&lon=${district.position
+                    .long}&appid=${openweathermapkey}`
+                                    )
+                                    .then(data => data.json())
+                                    .then(res => {
+                                        console.log(res);
+                                        const { name } = res;
+                                        const { id, icon, description } = res.weather[0];
+                                        const { feels_like, humidity, pressure } = res.main;
+                                        let celcius = (feels_like - 273).toFixed(1);
+                                        console.log('====================================');
+                                        console.log(
+                                            name,
+                                            icon,
+                                            description,
+                                            feels_like,
+                                            humidity,
+                                            pressure
+                                        );
+                                        console.log('====================================');
+
+                                        htmldata += ` <div class='single-content-box'>
                                                 <h3>${district.headquarter}, ${district.districtName}</h3>
                                                 <div class='innercontent'>
                                                     <p><abbr title='Area Code'>ACode</abbr> : ${district.acode}</p>
@@ -198,37 +255,40 @@ document.addEventListener('DOMContentLoaded', () => {
                                                               .area} km<sup>2</sup></span></p>
                                                         </details>
                                                         <div class='aqidetail'>
-                                                            <h5><samp>AQI index :</samp> <span id='dapi'>123</span></h5>
+                                                            <h5><samp>AQI index :</samp> <span id='dapi' style='color: ${color}'>${dmainaqi}</span></h5>
                                                             <div class='inner'>
-                                                                <p>Carbon Monoxide : <span id='districtCO' style='font-weight: bold; color: #132c33'>578.30</span>μg/m<sup>3</sup></p>
-                                                                <p>Nitrogen Monoxide : <span id='districtNO' style='font-weight: bold; color: #132c33'>78.30</span>μg/m<sup>3</sup></p>
-                                                                <p>Nitrogen Dioxide : <span id='districtND' style='font-weight: bold; color: #132c33'>28.30</span>μg/m<sup>3</sup></p>
-                                                                <p>Ozone : <span id='districtND' style='font-weight: bold; color: #132c33'>58.30</span>μg/m<sup>3</sup></p>
-                                                                <p>Sulpler Dioxide : <span id='districtND' style='font-weight: bold; color: #132c33'>58.30</span>μg/m<sup>3</sup></p>
-                                                                <p><abbr title='PM25'>Fine Particles</abbr> : <span id='districtND' style='font-weight: bold; color: #132c33'>58.30</span>μg/m<sup>3</sup></p>
-                                                                <p> <abbr title='PM21'>Coarse Particles</abbr> : <span id='districtND' style='font-weight: bold; color: #132c33'>58.30</span>μg/m<sup>3</sup></p>
-                                                                <p> Ammonia : <span id='districtND' style='font-weight: bold; color: #132c33'>58.30</span>μg/m<sup>3</sup></p>
+                                                                <p>Carbon Monoxide : <span id='districtCO' style='font-weight: bold; color: #132c33'>${dco}</span>μg/m<sup>3</sup></p>
+                                                                <p>Nitrogen Monoxide : <span id='districtNO' style='font-weight: bold; color: #132c33'>${dno}</span>μg/m<sup>3</sup></p>
+                                                                <p>Nitrogen Dioxide : <span id='districtND' style='font-weight: bold; color: #132c33'>${dno2}</span>μg/m<sup>3</sup></p>
+                                                                <p>Ozone : <span id='districtND' style='font-weight: bold; color: #132c33'>${do3}</span>μg/m<sup>3</sup></p>
+                                                                <p>Sulpler Dioxide : <span id='districtND' style='font-weight: bold; color: #132c33'>${dso2}</span>μg/m<sup>3</sup></p>
+                                                                <p><abbr title='PM25'>Fine Particles</abbr> : <span id='districtND' style='font-weight: bold; color: #132c33'>${dpm25}</span>μg/m<sup>3</sup></p>
+                                                                <p> <abbr title='PM21'>Coarse Particles</abbr> : <span id='districtND' style='font-weight: bold; color: #132c33'>${dpm10}</span>μg/m<sup>3</sup></p>
+                                                                <p> Ammonia : <span id='districtND' style='font-weight: bold; color: #132c33'>${dnh3}</span>μg/m<sup>3</sup></p>
                                                             </div>
                                                         </div>
                                                         <div class='weatherdetail'>
-                                                            <h4>Weather Detail</h4>
+                                                            <h4>Weather Detail of ${name} </h4>
                                                             <div class='calc'>
                                                                 <div class='img'>
-                                                                    <img draggable='false' src='./assets/img/icons/10d.png' alt=''>
+                                                                    <img draggable='false' src='./assets/img/icons/${icon}.png' alt=''>
                                                                 </div>
-                                                                <h4>25<span>&ring;C</span></h4>
+                                                                <h4>${celcius}<span>&ring;C</span></h4>
                                                             </div>
-                                                            <h5>Pressure : <span id='press'>131</span><span id='unit'>hPa</span></h5>
-                                                            <h5>Humidity : <span id='humid'>76</span><span id='unit'>%</span></h5>
+                                                            <h5>Pressure : <span id='press'>${pressure}</span><span id='unit'>hPa</span></h5>
+                                                            <h5>Humidity : <span id='humid'>${humidity}</span><span id='unit'>%</span></h5>
                                                         </div>
                                                     </p>
                                                 </div>
                                             </div>`;
+                                        provinceidd.innerHTML = htmldata;
+                                    });
+                            })
+                            .catch(err => {
+                                console.log('Error in fetching data : ' + err);
+                            });
                     });
-                    console.log(htmldata);
                 });
-            console.log(htmldata);
-            provinceidd.innerHTML = htmldata;
             return htmldata;
         }
 

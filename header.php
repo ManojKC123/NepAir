@@ -1,3 +1,8 @@
+<?php
+include './backend/config.php';
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +16,9 @@
     <script src='https://kit.fontawesome.com/573e62a9c5.js' crossorigin='anonymous'></script>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css'
         integrity='sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We' crossorigin='anonymous'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Poppins&display=swap" rel="stylesheet">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AQI index of Nepal | </title>
@@ -44,6 +52,34 @@
         border-radius: 5px;
         width: 100%;
     }
+
+    .offline {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: white;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        display: none;
+    }
+
+    .offline .box {
+        height: 100px;
+        width: 100px;
+    }
+
+    .offline .box img {
+        width: 100%;
+    }
+
+    .offline samp {
+        color: #132c33;
+    }
     </style>
     <script>
     window.onload = function() {
@@ -54,8 +90,13 @@
 </head>
 
 <body>
-    <div id="status" style="color: black;position: fixed;bottom: 0;
-    left:0; right: 0;"></div>
+    <div class="offline" id="offlinebox">
+        <div class="box">
+            <img src="./assets/img/nointernet.gif" alt="">
+        </div>
+        <samp>Opps ! you are offline !</samp>
+        <samp>Check your internet Connection !</samp>
+    </div>
     <div class="scrolltotop">
         <i class="fas fa-chevron-up"></i>
     </div>
@@ -98,14 +139,14 @@
             <div class="nav-div">
                 <div class="nav-box">
                     <div class="right-logo">
-                        AQI INDEX OF NEPAL
+                        <a href="<?php echo $localhost; ?>"> AQI INDEX OF NEPAL</a>
                     </div>
                     <div class="left-navs">
-                        <a href="">Documentation</a>
-                        <a href=""> About </a>
-                        <a href=""> Contact Us </a>
-                        <a href=""> Signup </a>
-                        <a href=""> Login </a>
+                        <a href="<?php echo $localhost; ?>documentation">Documentation</a>
+                        <a href="<?php echo $localhost; ?>about"> About </a>
+                        <a href="<?php echo $localhost; ?>systems/contactus"> Contact Us </a>
+                        <a href="<?php echo $localhost; ?>systems/signup"> Signup </a>
+                        <a href="<?php echo $localhost; ?>systems/"> Login </a>
                     </div>
                 </div>
             </div>
