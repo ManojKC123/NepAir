@@ -142,3 +142,17 @@ await fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${district
     </div>
 </div>
 <!-- province ends here  -->
+
+
+
+
+<div style="position: absolute; color: white;">
+                <?php if (!isset($_SESSION['login'])) {
+                } else {
+                    echo $_SESSION['login'] . '<br>';
+                    echo $_SESSION['email'] . '<br>';
+                    echo $_SESSION['cat'] . '<br>';
+                    echo $_COOKIE['login'] . '<br>';
+                    echo $_COOKIE['cat'] . '<br>';
+                } ?>
+            </div>

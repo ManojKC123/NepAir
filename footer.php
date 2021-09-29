@@ -1,9 +1,8 @@
-<link rel="stylesheet" href="./assets/Styles/footer.css">
-
-<footer style="height: 15vh; background: #efefef;">
+<link rel="stylesheet" href="./assets/styles/footer.css">
+<footer style="height: 24vh; background: #efefef;">
     <center>
-        <div class="footerdiv">
-            Copyright All Right Reserved ! <a href="https://neeswebservices.business.site/">Nees web services </a>
+        <div class="footerdiv" style="color: secondary;">
+            Copyright All Right Reserved ! <a href="https://neeswebservices.business.site/">Nepal - Manoj </a>
             <div class="social">
                 <a href="https://www.facebook.com/techneesofficial17/" target="_blank" class="fb">
                     <i class="fab fa-facebook"></i>
@@ -32,12 +31,25 @@
     </center>
 </footer>
 </div>
-
-
 <script src='./apps/jquery.js'></script>
-<script src='./apps/app.js'></script>
 <script>
 $(document).ready(function() {
+
+
+    $('#navbtn').on('click', function() {
+        $('.tabs').css('transform', 'translateX(0%)');
+        $('#navbtn').css('display', 'none');
+        $('#navbtnclose').css('display', 'block');
+        $('#navbtnclose').css('display', 'flex');
+
+    })
+    $('#navbtnclose').on('click', function() {
+        $('.tabs').css('transform', 'translateX(100%)');
+        $('#navbtnclose').css('display', 'none');
+        $('#navbtn').css('display', 'block');
+        $('#navbtn').css('display', 'flex');
+    })
+
 
     const checkonlinestatus = async () => {
         try {
@@ -59,7 +71,13 @@ $(document).ready(function() {
         }
     }, 3000);
 
-    // checking online status ends here
+    function gmailLogout() {
+        const auth2 = gapi.auth2.getAuthInstance();
+        auth2.gmailLogout().then((res) => {
+            console.log(res);
+        })
+    }
+
 
 
     $(window).scroll(function() {
@@ -85,10 +103,7 @@ $(document).ready(function() {
             $(window).scrollTop(0);
         })
     });
-
-
     let scroll = 0;
-
     let documentwidth = $('.innerbox').innerWidth().toFixed(0);
     let innerboxwidth = $('.innerbox').innerWidth();
     let innerboxtotalwidth = $('.innerbox').innerWidth() + 2000;
@@ -128,12 +143,6 @@ $(document).ready(function() {
         scroll = 0;
         $('.innerbox').scrollLeft(0);
     })
-
-
-
-
-
-
 })
 </script>
 </body>

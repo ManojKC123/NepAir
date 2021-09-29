@@ -1,8 +1,8 @@
+<link rel="stylesheet" href="./assets/styles/mainsection.css">
+
 <div class="main-map">
     <?php include 'maps.php'; ?>
 </div>
-
-
 <div class="d-container">
     <div class="yourlocation" style="margin: 40px auto;">
         <div class="box">
@@ -26,9 +26,7 @@
                 </div>
             </div>
             <div class="grid-div">
-                <div class="single-data">
-                    <h5 class="title">Ozone</h5>
-                    <p id=""></p>
+                <div class="single-data" id="airqualitycurrentlocation">
                 </div>
             </div>
         </div>
@@ -41,4 +39,5 @@
     </div>
 </div>
 
+<script src='./apps/app.js'></script>
 <?php include 'districts.php'; ?>

@@ -1,15 +1,47 @@
 <?php
+// smtp api key
+$smtpapikey =
+    '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';
+$admin = 'neeswebservices@gmail.com';
+// gmail client id
+$clientid =
+    '724077778480-rclm656n8s87b20t1vp89s078kfo1aqk.apps.googleusercontent.com';
+// client secret code
+$clientsecret = 'xs5vI7u9sBm84UfCw6WvtB9t';
 
-
-$clientid = "724077778480-rclm656n8s87b20t1vp89s078kfo1aqk.apps.googleusercontent.com";
-$clientsecret = "xs5vI7u9sBm84UfCw6WvtB9t";
+define('LOCALHOST', 'http://localhost/manojproj/');
 $localhost = 'http://localhost/manojproj/';
-$backhost = 'http://localhost/manojproj/backend';
+$backhost = 'http://localhost/manojproj/backend/';
 
+// your server host here
 $serverhost = 'localhost';
+// your username here
 $username = 'root';
-$password = '';
-$dbname = 'nepalAqi';
+// your password goes here
+$password = '12345';
+// your databasename
+$dbname = 'aqi';
+
+define('SERVERHOST', 'localhost');
+define('USERNAME', 'root');
+define('PASSWORD', '');
+define('DBNAME', 'nepalAqi');
+
+function strEncrypt($str, $iv)
+{
+    $key = 'neeschal123456789!@#$%^&*()secured###keyis##$$%best[]';
+    $option = 0;
+    $cipher = 'AES-128-CTR';
+    return openssl_encrypt($str, $cipher, $key, $option, $iv);
+}
+
+function strDecrypt($str, $iv)
+{
+    $key = 'neeschal123456789!@#$%^&*()secured###keyis##$$%best[]';
+    $option = 0;
+    $cipher = 'AES-128-CTR';
+    return openssl_decrypt($str, $cipher, $key, $option, $iv);
+}
 
 try {
     $con = new PDO(
@@ -22,7 +54,6 @@ try {
     echo 'Error ' . $e->getMessage();
 }
 
-
 function clean($input)
 {
     $input = str_replace('<', '&lt', $input);
@@ -33,31 +64,6 @@ function clean($input)
     $input = str_replace(';', '&#59', $input);
     $input = str_replace('/', '&#47', $input);
     return $input;
-}
-function mailer($to, $subject, $msg)
-{
-    require_once './mailing/smtp/class.phpmailer.php';
-    $mail = new PHPMailer();
-    $mail->IsSMTP();
-    $mail->SMTPDebug = 1;
-    $mail->SMTPAuth = true;
-    $mail->SMTPSecure = 'TLS';
-    $mail->Host = 'smtp.sendgrid.net';
-    $mail->Port = 587;
-    $mail->IsHTML(true);
-    $mail->CharSet = 'UTF-8';
-    $mail->Username = 'apikey';
-    $mail->Password ='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';
-    $mail->SetFrom('neeswebservices@gmail.com');
-    // $mail->addAttachment("dummy.pdf");
-    $mail->Subject = $subject;
-    $mail->Body = $msg;
-    $mail->AddAddress($to);
-    if (!$mail->Send()) {
-        return 0;
-    } else {
-        return 1;
-    }
 }
 
 ?>

@@ -26,6 +26,16 @@ nav {
   background: #dfdfdf;
   height: 15vh;
   z-index: 999;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
 }
 
 nav .scrollline {
@@ -44,6 +54,11 @@ nav .scrollline #scrolled {
   height: 100%;
   width: 0%;
   background: #0061f3;
+}
+
+nav .nav-div {
+  width: 100%;
+  margin: 0 10px;
 }
 
 nav .nav-div .nav-box {
@@ -68,36 +83,35 @@ nav .nav-div .nav-box .right-logo {
   font-size: 25px;
   color: #132c33;
   text-align: center;
-  width: 40%;
+  width: 30%;
 }
 
 nav .nav-div .nav-box .left-navs {
-  width: 50%;
+  width: 70%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
 }
 
 nav .nav-div .nav-box .left-navs a {
   text-decoration: none;
-  -webkit-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
   font-size: 17px;
   text-underline-offset: 6px;
+  padding: 3px 10px;
 }
 
 nav .nav-div .nav-box .left-navs a:hover {
-  text-decoration: underline;
+  background: royalblue;
+  color: white;
+  border-bottom: 2px solid royalblue;
 }
 
 .main-map {
@@ -391,6 +405,7 @@ nav .nav-div .nav-box .left-navs a:hover {
 }
 
 .scrolltotop {
+  z-index: 999;
   position: fixed;
   top: 90%;
   right: 1%;
@@ -422,6 +437,7 @@ nav .nav-div .nav-box .left-navs a:hover {
 }
 
 .stop-auto-scroll {
+  z-index: 999;
   background: black;
   position: fixed;
   top: 82%;
